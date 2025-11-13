@@ -1,4 +1,5 @@
 name: Joke Action
+run-name: Dad joke ${{ github.event.issue_comment.number }}
 on:
  issue_comment:
    types: [created]
@@ -13,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - run: echo "$FULL_CONTEXT"
+        env:
+          FULL_CONTEXT: ${{ toJSON(github) }}
       - name: Get Joke
         id: get-joke
         uses: ./
